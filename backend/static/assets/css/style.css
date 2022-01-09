@@ -118,7 +118,12 @@ h1, h2, h3, h4, h5, h6 {
   #header .logo h1 {
     font-size: 24px;
   }
+  .bold h2{
+  font-size: larger;
+  }
 }
+
+
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -1003,6 +1008,9 @@ section {
   text-align: left;
   padding: 15px;
   font-weight: 600;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
 }
 .contact .php-email-form .error-message br + br {
   margin-top: 25px;

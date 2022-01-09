@@ -10,6 +10,10 @@ app.secret_key="madhujunaid"
 def home():
     return render_template("index.html")
 
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
 app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/autoease'
 db=SQLAlchemy(app)
 
