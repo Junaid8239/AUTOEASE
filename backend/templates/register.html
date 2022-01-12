@@ -1,9 +1,10 @@
 {% extends 'baselogin.html' %}
 {% block tittle   %}Register{% endblock tittle  %}
 {% block form  %}
-<h2 class='bold'>
+<h2 class="font-weight-bold">
 Register here
 </h2>
+{% include "message.html" %}
 <div  class="row">
     <div class="col-md-3"></div>
     
@@ -46,9 +47,7 @@ Register here
     <button  style=background-color:#009970;color:azure type="submit" class="btn btn-info">Register</button>
     
     </form>
-    
-    <a class="text-success text-light" href="/login">Click Here to Login </a>
-    </div>
+  
     
     
     <div class="col-md-4"></div>

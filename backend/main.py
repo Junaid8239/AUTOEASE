@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from flask_login import login_required,logout_user,login_user,login_manager,LoginManager,current_user
 from werkzeug.security import generate_password_hash,check_password_hash
-
+from flask.helpers import url_for
             
 
 #mydatabase connection
@@ -59,22 +59,28 @@ def registers():
         user=register.query.filter_by(username=username).first()
         useremail=register.query.filter_by(email=email).first()
         phno=register.query.filter_by(phonenumber=phonenumber).first()
-        if user or useremail or phno:
-            flash("Email or username or phno is already taken","warning")
+        if user :
+            flash("Username is already taken","warning")
             return render_template("register.html")
-        if password!=checkpassword:
-            flash("reentered password wrong")
+        if  useremail :
+            flash("Emailid is already taken","warning")
+            return render_template("register.html")
+        if phno:
+            flash("phno is already taken","warning")
+            return render_template("register.html")     
+        if password!=checkpassword :
+            flash("Entered password do not match","warning")
             return render_template("register.html")
         if int(age)<=int(18):
-            flash("reentered password wrong")
+            flash("Age Restriction","warning")
             return render_template("register.html")
         if len(password)<8:
-            flash("enter minimum 8 characters of password")
+            flash("enter minimum 8 characters of password","warning")
             return render_template("register.html")
         encpassword=generate_password_hash(password)
         new_user=db.engine.execute(f"INSERT INTO `register` (`username`,`email`,`phonenumber`,`age`,`password`) VALUES ('{username}','{email}','{phonenumber}','{age}','{encpassword}') ")
                 
-        flash("register Success Please Login","success")
+        flash("Registered,Please Login","success")
         return render_template("login.html")
 
     return render_template("register.html")
@@ -85,33 +91,29 @@ def login():
         username=request.form.get('username')
         password=request.form.get('password')
         user=register.query.filter_by(username=username).first()
-        print(user.password)
-        if user and check_password_hash(user.password,password):
-            login_user(user)
-            print('Login Success')
-            return render_template("index.html")
+        try:
+            if user and check_password_hash(user.password,password):
+                login_user(user)
+                return render_template("index.html")
+        except:
+            flash("Invalid Credential","danger")
+            return render_template("login.html") 
+
         else:
             flash("Invalid Credentials","danger")
             return render_template("login.html") 
     return render_template("login.html")
         
 
-class Test(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(50))
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Logout SuccessFul","warning")
+    return redirect(url_for('login'))
 
 
 
-
-@app.route("/test")
-def test():
-    try:
-        a=Test.query.all()
-        print(a)
-        return('connected')
-    except Exception as e:
-        print(e)
-        return f'not{e}'   
 
 
 
