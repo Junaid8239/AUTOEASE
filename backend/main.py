@@ -37,10 +37,10 @@ class register(UserMixin, db.Model):
 def home():
     return render_template("index.html")
 
-# @app.route("/register")
-# def register():
-#     return render_template("register.html")
 
+@app.route("/addvehicle")
+def addvehicle():
+    return render_template("addvehicle.html")
 
 # @app.route("/login")
 # def login():
