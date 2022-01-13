@@ -17,10 +17,20 @@ app.secret_key="madhujunaid"
 login_manager=LoginManager(app)
 login_manager.login_view='login'
 
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/autoease'
+db=SQLAlchemy(app)
 
 @login_manager.user_loader
 def load_user(id):
     return register.query.get(int(id))
+
+class register(UserMixin, db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    username=db.Column(db.String(15),unique=True)
+    email=db.Column(db.String(30),unique=True)
+    phonenumber=db.Column(db.BigInteger,unique=True)
+    password=db.Column(db.String(1000))
+    age=db.Column(db.Integer)
 
 
 @app.route("/")
@@ -32,12 +42,12 @@ def home():
 #     return render_template("register.html")
 
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
+# @app.route("/login")
+# def login():
+#     return render_template("login.html")
 
 @app.route('/register',methods=['POST','GET'])
-def register():
+def registers():
     if request.method=="POST":
         username=request.form.get('username')
         email=request.form.get('email')
@@ -46,7 +56,6 @@ def register():
         password=request.form.get('password')
         checkpassword=request.form.get('chpassword')
         print(username,email,phonenumber,age,password,checkpassword)
-       
         user=register.query.filter_by(username=username).first()
         useremail=register.query.filter_by(email=email).first()
         phno=register.query.filter_by(phonenumber=phonenumber).first()
@@ -70,20 +79,28 @@ def register():
 
     return render_template("register.html")
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/autoease'
-db=SQLAlchemy(app)
+@app.route('/login',methods=['POST','GET'])
+def login():
+    if request.method=="POST":
+        username=request.form.get('username')
+        password=request.form.get('password')
+        user=register.query.filter_by(username=username).first()
+        print(user.password)
+        if user and check_password_hash(user.password,password):
+            login_user(user)
+            print('Login Success')
+            return render_template("index.html")
+        else:
+            flash("Invalid Credentials","danger")
+            return render_template("login.html") 
+    return render_template("login.html")
+        
 
 class Test(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     name=db.Column(db.String(50))
 
-class register(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    username=db.Column(db.String(15),unique=True)
-    email=db.Column(db.String(30),unique=True)
-    phonenumber=db.Column(db.BigInteger,unique=True)
-    password=db.Column(db.String(100))
-    age=db.Column(db.Integer)
+
 
 
 @app.route("/test")
