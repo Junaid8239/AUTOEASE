@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask.helpers import url_for
             
 
+
 #mydatabase connection
 local_server=True
 app=Flask(__name__)
@@ -38,7 +39,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/addvehicle")
+@app.route('/addvehicle')
 def addvehicle():
     return render_template("addvehicle.html")
 
@@ -104,7 +105,7 @@ def login():
             return render_template("login.html") 
     return render_template("login.html")
         
-        
+
 
 @app.route('/logout')
 @login_required
