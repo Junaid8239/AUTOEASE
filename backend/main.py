@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask.helpers import url_for
             
 
+fid=0
 
 #mydatabase connection
 local_server=True
@@ -33,15 +34,24 @@ class register(UserMixin, db.Model):
     password=db.Column(db.String(1000))
     age=db.Column(db.Integer)
 
+class vehicle(db.Model):
+    regno=db.Column(db.String(20),primary_key=True)
+    state=db.Column(db.String(20))
+    ownername=db.Column(db.String(30))
+    rto=db.Column(db.String(20))
+    rcnumber=db.Column(db.String(20),unique=True)
+    pucnumber=db.Column(db.String(20),unique=True)
+    insurancenumber=db.Column(db.String(20),unique=True)
+    panno=db.Column(db.String(20))
+    id=db.Column(db.Integer)
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-@app.route('/addvehicle')
-def addvehicle():
-    return render_template("addvehicle.html")
+
 
 # @app.route("/login")
 # def login():
@@ -94,6 +104,8 @@ def login():
         user=register.query.filter_by(username=username).first()
         try:
             if user and check_password_hash(user.password,password):
+                global fid
+                fid=user.id
                 login_user(user)
                 return render_template("index.html")
         except:
@@ -111,10 +123,26 @@ def login():
 @login_required
 def logout():
     logout_user()
+    fid=0
     flash("Logout SuccessFul","warning")
     return redirect(url_for('login'))
 
+@app.route('/addvehicle',methods=['POST','GET'])
+def addvehicle():
+    if request.method=="POST":
+        regno=request.form.get('regno')
+        state=request.form.get('state')
+        rto=request.form.get('rto')
+        ownername=request.form.get('ownername')
+        panno=request.form.get('panno')
+        insurancenumber=request.form.get('insurancenumber')
+        pucnumber=request.form.get('pucnumber')
+        rcnumber=request.form.get('rcnumber')
+        global fid
+        new_vehicle=db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`rcnumber`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{rcnumber}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
+        return render_template("addvehicle.html")
 
+    return render_template("addvehicle.html")
 
 
 
