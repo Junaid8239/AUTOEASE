@@ -39,7 +39,6 @@ class vehicle(db.Model):
     state=db.Column(db.String(20))
     ownername=db.Column(db.String(30))
     rto=db.Column(db.String(20))
-    rcnumber=db.Column(db.String(20),unique=True)
     pucnumber=db.Column(db.String(20),unique=True)
     insurancenumber=db.Column(db.String(20),unique=True)
     panno=db.Column(db.String(20))
@@ -102,6 +101,7 @@ def login():
         username=request.form.get('username')
         password=request.form.get('password')
         user=register.query.filter_by(username=username).first()
+
         try:
             if user and check_password_hash(user.password,password):
                 global fid
@@ -123,7 +123,6 @@ def login():
 @login_required
 def logout():
     logout_user()
-    fid=0
     flash("Logout SuccessFul","warning")
     return redirect(url_for('login'))
 
@@ -137,9 +136,10 @@ def addvehicle():
         panno=request.form.get('panno')
         insurancenumber=request.form.get('insnumber')
         pucnumber=request.form.get('pucnumber')
-        rcnumber=request.form.get('rcnumber')
+
+        
         global fid
-        new_vehicle=db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`rcnumber`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{rcnumber}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
+        new_vehicle=db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
         return render_template("addvehicle.html")
 
     return render_template("addvehicle.html")
