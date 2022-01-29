@@ -15,116 +15,113 @@
 <body>
     <!-- <h2 class="headerveh"> Enter your vehicle details</h2> -->
  
-  <header class="p-3 bg-success text-white">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <!-- <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
-          <h2>Enter your vehicle details</h2>
-        </ul>
-
-        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form> -->
-
-        <div class="text-end">
-          <button type="button" class="btn btn-outline-dark me-2"><a href="/" class="text-light"> Home</a></button>
-          <button type="button" class="btn btn-warning"><a"href=""> My vehicle</a></button>
-
+    <header class="p-3 bg-success text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+          </a>
+  
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <!-- <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
+            <h2>Enter your vehicle details</h2>
+          </ul>
+  
+          <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+          </form> -->
+  
+          <div class="text-end">
+            <button type="button" class="btn btn-outline-dark me-2"><a href="/" class="text-light"> Home</a></button>
+            <button type="button" class="btn btn-warning"><a"href=""> My vehicle</a></button>
+          </div>
+        </div>
+        
+        <form action="/addvehicle", method="POST">
+        
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" class="form-control mt-1" placeholder="state" name="state" required>
+                <label class="form-label" for="form6Example2">Enter state</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" class="form-control mt-1" placeholder="RTO" name="rto" required>
+                <label class="form-label" for="form6Example2">Enter RTO</label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" class="form-control mt-1" placeholder="Vehicele REG. NO." name="regno" required>
+                <label class="form-label" for="form6Example2">Enter vehicle reg. no.</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" class="form-control mt-1" placeholder="Ownername" name="ownername" required>
+                <label class="form-label" for="form6Example2">Enter Ownername</label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" class="form-control mt-1" placeholder="pan no." name="panno" required>
+                <label class="form-label" for="form6Example2">Enter pan number</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" class="form-control mt-1" placeholder="Insurance-id" name="insnumber" required>
+                <label class="form-label" for="form6Example2">Enter insurance number</label>
+              </div>
+            </div>
+          </div>
+      
+          <div class="row mb-4">
+            <div class="form-outline"  style="max-width:480px ">
+                <input  type="text" class="form-control mt-2" placeholder="pollution certificate-id" name="pucnumber"  required>
+                <label class="form-label" for="form6Example2">Enter Pollution certificate-id</label
+              </div>
+          </div >
+          <div style="padding:20px">
+          <button type="submit" class="btn btn-primary btn-block mb-6">Verify</button>
+          <p class="nav col-12 col-lg-auto me-lg-auto mb-4 justify-content-center mb-md-0">To view AUTOCARD go to<a href="My Vehicles"color: #393f81;> My Vehicle</a></p>
+          </div> 
+        </form >      
+      </div>
+    </header>
+    <footer>
+      <div class="container d-md-flex py-4">
+  
+        <div class="me-md-auto text-center text-md-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>AutoEase</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            Designed by AUTOEASE TEAM
+          </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
         </div>
       </div>
-      <form>
-        <!-- 2 column grid layout with text inputs for the first and last names -->
-        <div class="row mb-4">
-          <div class="col">
-            <div class="form-outline">
-              <input type="text" id="form6Example1" class="form-control" />
-              <label class="form-label" for="form6Example1">Select state</Reg></label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-outline">
-              <select name="" id="form6Example2" class="form-control"> 
-                <option value="karnataka">karnataka</option>
-                <option value="kerala">kerala</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-              </select>
-              <label class="form-label" for="form6Example2">select R.T.O</label>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col">
-            <div class="form-outline">
-              <input type="text" id="form6Example1" class="form-control" />
-              <label class="form-label" for="form6Example1">Vehicle Reg.No</Reg></label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-outline">
-              <select name="" id="form6Example2" class="form-control"> 
-                <option value="karnataka">karnataka</option>
-                <option value="kerala">kerala</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-              </select>
-              <label class="form-label" for="form6Example2">Owner name</label>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col">
-            <div class="form-outline">
-              <input type="text" id="form6Example1" class="form-control" />
-              <label class="form-label" for="form6Example1">Select state</Reg></label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-outline">
-              <select name="" id="form6Example2" class="form-control"> 
-                <option value="karnataka">karnataka</option>
-                <option value="kerala">kerala</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-                <option value="karnataka">karnataka</option>
-              </select>
-              <label class="form-label" for="form6Example2">select R.T.O</label>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col">
-            <div class="form-outline">
-              <input type="text" id="form6Example1" class="form-control" />
-              <label class="form-label" for="form6Example1">Vehicle Pollution Doc.No</Reg></label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-outline">
-              <input type="text" id="form6Example1" class="form-control" />
-              <label class="form-label" for="form6Example2">PAN no.</label>
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block mb-4">Verify</button>
-        <p class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">To view AUTOCARD go to<a href="My Vehicles"color: #393f81;> My Vehicle</a></p>
-      </form       
-    </div>
-  </header>
+    </footer>
+  </body>
+  </html>
+  
   <footer>
     <div class="container d-md-flex py-4">
 

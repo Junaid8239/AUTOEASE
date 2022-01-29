@@ -135,7 +135,7 @@ def addvehicle():
         rto=request.form.get('rto')
         ownername=request.form.get('ownername')
         panno=request.form.get('panno')
-        insurancenumber=request.form.get('insurancenumber')
+        insurancenumber=request.form.get('insnumber')
         pucnumber=request.form.get('pucnumber')
         rcnumber=request.form.get('rcnumber')
         global fid
