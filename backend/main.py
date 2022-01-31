@@ -111,7 +111,6 @@ def login():
         except:
             flash("Invalid Credential","danger")
             return render_template("login.html") 
-
         else:
             flash(" Invalid Credentials","danger")
             return render_template("login.html") 
@@ -127,6 +126,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/addvehicle',methods=['POST','GET'])
+@login_required
 def addvehicle():
     if request.method=="POST":
         regno=request.form.get('regno')
@@ -136,8 +136,19 @@ def addvehicle():
         panno=request.form.get('panno')
         insurancenumber=request.form.get('insnumber')
         pucnumber=request.form.get('pucnumber')
+        userinnum=vehicle.query.filter_by(insurancenumber=insurancenumber).first() 
+        userpucnum=vehicle.query.filter_by(pucnumber=pucnumber).first()
+        userregno=vehicle.query.filter_by(regno=regno).first()
 
-        
+        if userinnum:
+            flash("insurance number already registered","warning")
+            return render_template("addvehicle.html")
+        if userpucnum:
+            flash("pollution id already registered","warning")
+            return render_template("addvehicle.html")
+        if userregno:
+            flash("pollution id already registered","warning")
+            return render_template("addvehicle.html")
         global fid
         new_vehicle=db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
         return render_template("addvehicle.html")
