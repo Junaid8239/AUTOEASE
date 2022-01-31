@@ -139,16 +139,17 @@ def addvehicle():
         userinnum=vehicle.query.filter_by(insurancenumber=insurancenumber).first() 
         userpucnum=vehicle.query.filter_by(pucnumber=pucnumber).first()
         userregno=vehicle.query.filter_by(regno=regno).first()
-
+        
+        if userregno:
+            flash("pollution id already registered","warning")
+            return render_template("addvehicle.html")
         if userinnum:
             flash("insurance number already registered","warning")
             return render_template("addvehicle.html")
         if userpucnum:
             flash("pollution id already registered","warning")
             return render_template("addvehicle.html")
-        if userregno:
-            flash("pollution id already registered","warning")
-            return render_template("addvehicle.html")
+        
         global fid
         new_vehicle=db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
         return render_template("addvehicle.html")
