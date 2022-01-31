@@ -44,6 +44,21 @@ class vehicle(db.Model):
     panno=db.Column(db.String(20))
     id=db.Column(db.Integer)
 
+class insuracenumber(db.Model):
+    reg_no=db.Column(db.String(20))
+    inc_no=db.Column(db.String(20),primary_key=True)
+    inc_start=db.Column(db.String(20))
+    exp_end=db.Column(db.String(20))
+    get_from=db.Column(db.String(20))
+
+class pucnumber(db.Model):
+    reg_no=db.Column(db.String(20))
+    puc_no=db.Column(db.String(20),primary_key=True)
+    test_date=db.Column(db.String(20))
+    valid_date=db.Column(db.String(20))
+    tov=db.Column(db.String(20))
+    vbd=db.Column(db.String(20))
+
 
 @app.route("/")
 def home():
@@ -139,16 +154,16 @@ def addvehicle():
         userinnum=vehicle.query.filter_by(insurancenumber=insurancenumber).first() 
         userpucnum=vehicle.query.filter_by(pucnumber=pucnumber).first()
         userregno=vehicle.query.filter_by(regno=regno).first()
-
+        if userregno:
+            flash("pollution id already registered","warning")
+            return render_template("addvehicle.html")  
         if userinnum:
             flash("insurance number already registered","warning")
             return render_template("addvehicle.html")
         if userpucnum:
             flash("pollution id already registered","warning")
             return render_template("addvehicle.html")
-        if userregno:
-            flash("pollution id already registered","warning")
-            return render_template("addvehicle.html")
+             
         global fid
         new_vehicle=db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
         return render_template("addvehicle.html")
