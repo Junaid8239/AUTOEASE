@@ -199,6 +199,7 @@ def addvehicle():
                 flash("invalid insurance number for register number="+regno,"warning")
             elif(puc_var in pucnumber and  ins_var in insurancenumber) :
                 flash("vehicle details successfully verified","success")
+                
 
            
 
