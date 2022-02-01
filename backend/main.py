@@ -60,6 +60,26 @@ class pollution(db.Model):
     tov=db.Column(db.String(20))
     vbd=db.Column(db.String(20))
 
+class autocard(db.Model):
+    acard_id=db.Column(db.Integer,primary_key=True)
+    auid=db.Column(db.Integer)
+    astate=db.Column(db.String(20))
+    atov=db.Column(db.String(20))
+    avbd=db.Column(db.String(20))
+    aownername=db.Column(db.String(20))
+    arto=db.Column(db.String(20))
+    areg_no=db.Column(db.String(20))
+    apan_no=db.Column(db.String(20))
+    apuc_no=db.Column(db.String(20),primary_key=True)
+    apuc_testdate=db.Column(db.String(20))
+    apuc_validdate=db.Column(db.String(20))
+    ains_no=db.Column(db.String(20),primary_key=True)
+    ains_startdate=db.Column(db.String(20))
+    ains_enddate=db.Column(db.String(20))
+
+
+
+
 
 @app.route("/")
 def home():
@@ -198,10 +218,21 @@ def addvehicle():
                 db.engine.execute(f"DELETE from `vehicle` where `regno`='{regno}' ")
                 flash("invalid insurance number for register number="+regno,"warning")
             elif(puc_var in pucnumber and  ins_var in insurancenumber) :
-                flash("vehicle details successfully verified","success")
-                
+                pucdetails=db.engine.execute(f"SELECT * FROM `pollution` WHERE `reg_no`='{regno}'")
+                for p in pucdetails:
+                    puctest_var=p[2]
+                    pucvalid_var=p[3]
+                    tov_var=p[4]
+                    vbd_var=p[5]
 
-           
+                insdetails=db.engine.execute(f"SELECT * FROM `insurance` WHERE `reg_no`='{regno}'")
+                for i in insdetails:
+                    insstart_var=i[2]
+                    insend_var=i[3]
+
+
+                db.engine.execute(f"insert into `autocard` (`auid`,`astate`,`atov`,`avbd`,`aownername`,`arto`,`areg_no`,`apan_no`,`apuc_no`,`apuc_testdate`,`apuc_validdate`,`ains_no`,`ains_startdate`,`ains_enddate`) values ('{fid}','{state}','{tov_var}','{vbd_var}','{ownername}','{rto}','{regno}','{panno}','{puc_var}','{puctest_var}','{pucvalid_var}','{ins_var}','{insstart_var}','{insend_var}')")
+                flash("vehicle details successfully verified","success")
 
 
         
