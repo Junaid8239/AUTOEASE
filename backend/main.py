@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from enum import unique
 
 from flask import Flask, json,redirect,render_template,flash,request
@@ -44,14 +45,14 @@ class vehicle(db.Model):
     panno=db.Column(db.String(20))
     id=db.Column(db.Integer)
 
-class insuracenumber(db.Model):
+class insurance(db.Model):
     reg_no=db.Column(db.String(20))
     inc_no=db.Column(db.String(20),primary_key=True)
     inc_start=db.Column(db.String(20))
     exp_end=db.Column(db.String(20))
     get_from=db.Column(db.String(20))
 
-class pucnumber(db.Model):
+class pollution(db.Model):
     reg_no=db.Column(db.String(20))
     puc_no=db.Column(db.String(20),primary_key=True)
     test_date=db.Column(db.String(20))
@@ -103,7 +104,7 @@ def registers():
             flash("enter minimum 8 characters of password","warning")
             return render_template("register.html")
         encpassword=generate_password_hash(password)
-        new_user=db.engine.execute(f"INSERT INTO `register` (`username`,`email`,`phonenumber`,`age`,`password`) VALUES ('{username}','{email}','{phonenumber}','{age}','{encpassword}') ")
+        db.engine.execute(f"INSERT INTO `register` (`username`,`email`,`phonenumber`,`age`,`password`) VALUES ('{username}','{email}','{phonenumber}','{age}','{encpassword}') ")
                 
         flash("Registered,Please Login","success")
         return render_template("login.html")
@@ -154,18 +155,50 @@ def addvehicle():
         userinnum=vehicle.query.filter_by(insurancenumber=insurancenumber).first() 
         userpucnum=vehicle.query.filter_by(pucnumber=pucnumber).first()
         userregno=vehicle.query.filter_by(regno=regno).first()
+
         if userregno:
-            flash("pollution id already registered","warning")
+            flash("This register number already registered","warning")
             return render_template("addvehicle.html")  
         if userinnum:
-            flash("insurance number already registered","warning")
+            flash("This insurance number already registered","warning")
             return render_template("addvehicle.html")
         if userpucnum:
-            flash("pollution id already registered","warning")
+            flash("This pollution id already registered","warning")
             return render_template("addvehicle.html")
              
         global fid
-        new_vehicle=db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
+        db.engine.execute(f"INSERT INTO `vehicle` (`regno`,`state`,`ownername`,`rto`,`pucnumber`,`insurancenumber`,`panno`,`id`) VALUES ('{regno}','{state}','{ownername}','{rto}','{pucnumber}','{insurancenumber}','{panno}','{fid}') ")
+        puc_var=NULL
+        ins_var=NULL
+        puc=db.engine.execute(f"SELECT `puc_no` FROM `pollution` WHERE `reg_no`='{regno}'")
+        ins=db.engine.execute(f"SELECT `inc_no` FROM `insurance` WHERE `reg_no`='{regno}'")
+        print ("junaid4")
+        for p in puc:
+            puc_var=p[0]
+        for i in ins:
+            ins_var=i[0]
+        if puc_var and ins_var:
+            print(puc_var,ins_var)
+
+
+        else: 
+            db.engine.execute(f"DELETE from `vehicle` where `regno`='{regno}' ")
+            flash("register number is invalid","warning")
+
+        if puc_var and ins_var:
+            if puc_var not in pucnumber:
+                db.engine.execute(f"DELETE from `vehicle` where `regno`='{regno}' ")
+                flash("invalid pollution certificate id for register number="+regno,"warning")
+            if ins_var not in insurancenumber:
+                db.engine.execute(f"DELETE from `vehicle` where `regno`='{regno}' ")
+                flash("invalid insurance number for register number="+regno,"warning")
+            elif(puc_var in pucnumber and  ins_var in insurancenumber) :
+                flash("vehicle details successfully verified","success")
+
+           
+
+
+        
         return render_template("addvehicle.html")
 
     return render_template("addvehicle.html")
