@@ -252,15 +252,14 @@ def vdata():
     # print(c)
     # for i in range(c):
         
-    con=db.engine.execute(f"select `acard_id` from `autocard` where `auid`='{id}' ")
-    for ci in con:
-     
-        cardid=ci[0]
-        postsdata=autocard.query.filter_by(acard_id=cardid).first()
-        print(postsdata.acard_id)
+    #postdata=db.engine.execute(f"select * from `autocard` where `auid`='{id}' ")
+    postdata=autocard.query.all()
+    for i in postdata:
+        print(i)
+    return render_template("vdata.html",postdata=postdata)
     
 
-    return render_template("vdata.html",postsdata=postsdata)
+    
 
 
 

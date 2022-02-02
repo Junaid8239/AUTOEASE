@@ -55,10 +55,11 @@
           </div>
         </nav>
         <!-- {% include "message.html" %} -->
-        
+        {%  for postsdata in postdata %}
         <div class="row">
           <div class="col-md-3"></div>
           <div class="col-md-6">
+           
               <div class="card">
                   {% include "message.html" %}
                   <h4 class="text-center text-success">Vehicle Details</h4>
@@ -94,6 +95,7 @@
       </div>
       </div>
       </div>
+      {% endfor %}
     </header>
     <footer>
       <div class="container d-md-flex py-4">
