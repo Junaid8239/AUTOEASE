@@ -241,6 +241,16 @@ def addvehicle():
     return render_template("addvehicle.html")
 
 
+@app.route('/vdata',methods=['POST','GET'])
+@login_required
+def vdata():
+    id=current_user.id
+    print (id)
+    postsdata=autocard.query.filter_by(auid=id).first()
+    print(postsdata.acard_id)
+    
+    
+    return render_template("vdata.html",postsdata=postsdata)
 
 
 
