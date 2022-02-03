@@ -47,9 +47,9 @@
                 </li> -->
               </ul>
               <div class="text-end">
-                <button type="button" class="btn btn-warning pr-2"><a href=""> Home</a></button>
+                <button type="button" class="btn btn-warning pr-2"><a class="text-decoration-none text-dark" href="/"> Home</a></button>
                 <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                <button class="btn btn-warning" type="submit">Logout</button>
+                <button class="btn btn-warning" type="submit" href="/logout"><a  class="text-decoration-none text-dark" href="/logout">Logout</a></button>
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@
                   <h4 class="text-center text-success">Vehicle Details</h4>
                   <div class="card-body bg-dark ">
                     <!-- <h5 class="card-title text-center  "></h5> -->
-                    <div class="card bg-dark" style="width: 26rem;">
+                    <div class="card bg-dark" style="width: 38rem;">
                         <ul class="list-group list-group-flush bg-dark">
                           <li class="list-group-item">Card Number: <b>{{postsdata.acard_id}}</b></li>
                           <li class="list-group-item">User id:<b>{{postsdata.auid}}</b></li>
@@ -85,8 +85,9 @@
                         </ul>
                         
                     </div>
-                    <Div class="col-md-6">
-                      <button type="button" class="btn btn-warning text-white border border-dark"><a href="">AutoCard</a></button>
+                    <Div class="col-md-12">
+                      <button type="button" class="btn btn-warning text-dark border border-dark"><a  class="text-decoration-none text-dark" href="">AutoCard</a></button>
+                      <button type="button" class="btn btn-warning text-dark border border-dark "><a class="text-decoration-none text-dark"  href="">Delete Vehicle</a></button>
                     </Div>
                     
                   </div>
