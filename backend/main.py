@@ -246,10 +246,13 @@ def addvehicle():
 def vdata():
     id=current_user.id
     print (id)
-  
-    postdata=autocard.query.all()
+    m=id
+    postdata=autocard.query.filter_by(auid=m).all()
+    
     for i in postdata:
-        print(i)
+        print(i.acard_id)
+            
+
     return render_template("vdata.html",postdata=postdata,id=id)
     
 
