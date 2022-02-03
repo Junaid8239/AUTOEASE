@@ -246,17 +246,11 @@ def addvehicle():
 def vdata():
     id=current_user.id
     print (id)
-    # count=db.engine.execute(f"select count(`acard_id`) from `autocard` group by `auid`")
-    # for i in count:
-    #     c=i[0]
-    # print(c)
-    # for i in range(c):
-        
-    #postdata=db.engine.execute(f"select * from `autocard` where `auid`='{id}' ")
+  
     postdata=autocard.query.all()
     for i in postdata:
         print(i)
-    return render_template("vdata.html",postdata=postdata)
+    return render_template("vdata.html",postdata=postdata,id=id)
     
 
     
