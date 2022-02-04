@@ -1,13 +1,13 @@
 from asyncio.windows_events import NULL
 from enum import unique
 
-from flask import Flask, json,redirect,render_template,flash,request
+from flask import Flask, json,redirect,render_template,flash,request,Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from flask_login import login_required,logout_user,login_user,login_manager,LoginManager,current_user
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask.helpers import url_for
-            
+from fpdf import FPDF     
 
 fid=0
 
@@ -256,9 +256,22 @@ def vdata():
     return render_template("vdata.html",postdata=postdata,id=id)
     
 
-    
+@app.route('/download/report/pdf')  
+def download_report():
+        id=current_user.id
+        print (id)
+        m=id
+        postdata=autocard.query.filter_by(auid=m).all()
+        
+        pdf = FPDF()
+        pdf.add_page()
 
+        page_width = pdf.w - 2 * pdf.l_margin
 
+        pdf.set_font('Times','B',14.0) 
+        pdf.cell(page_width, 0.0, 'Auto card', align='C')
+        pdf.ln(10)
+        return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=employee_report.pdf'})
 
 app.run(debug = True)
 
