@@ -56,7 +56,7 @@
         </nav>
         <!-- {% include "message.html" %} -->
         {%  for postsdata in postdata %}
-        
+        <form action="/vdata", method="POST"></form>
         <div class="row">
           <div class="col-md-3"></div>
           <div class="col-md-6">
@@ -83,12 +83,10 @@
                           <li class="list-group-item">Vehicle Insurance Updated on:<b>{{postsdata.ains_startdate}}</b></li>
                           <li class="list-group-item">Vehicle Insurance Expiry date:<b>{{postsdata.ains_enddate}}</b></li> 
                         </ul>
+
                         
                     </div>
-                    <Div class="col-md-12">
-                      <button type="button" class="btn btn-warning text-dark border border-dark"><a  class="text-decoration-none text-dark" href="{{ url_for('.download_report') }}">AutoCard</a></button>
-                      <button type="button" class="btn btn-warning text-dark border border-dark "><a class="text-decoration-none text-dark"  href="">Delete Vehicle</a></button>
-                    </Div>
+                
                     
                   </div>
               </div>
@@ -98,8 +96,17 @@
       </div>
       </div>
        
+     
+     
+
+      <Div class="col-md-12">
+        <button type="button" class="btn btn-warning text-dark border border-dark"><a  class="text-decoration-none text-dark" href="{{ url_for('.download_report') }}">AutoCard</a></button>
+        <button type="button" class="btn btn-warning text-dark border border-dark "><a class="text-decoration-none text-dark"  href="">Delete Vehicle</a></button>
+      </Div>
       {% endfor %}
+ 
     </header>
+    
     <footer>
       <div class="container d-md-flex py-4">
   

@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 from enum import unique
 
+
 from flask import Flask, json,redirect,render_template,flash,request,Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
@@ -244,14 +245,14 @@ def addvehicle():
 @app.route('/vdata',methods=['POST','GET'])
 @login_required
 def vdata():
+             
     id=current_user.id
     print (id)
     m=id
     postdata=autocard.query.filter_by(auid=m).all()
-    
-    for i in postdata:
-        print(i.acard_id)
-            
+
+        
+           
 
     return render_template("vdata.html",postdata=postdata,id=id)
     
@@ -259,10 +260,17 @@ def vdata():
 @app.route('/download/report/pdf')  
 def download_report():
         id=current_user.id
-        print (id)
         m=id
         postdata=autocard.query.filter_by(auid=m).all()
-        
+      
+        for i in postdata:
+         
+          
+               
+                card=i.acard_id
+                owner=i.aownername
+                puc=i.apuc_no
+                ins=i.ains_no
         pdf = FPDF()
         pdf.add_page()
 
@@ -271,6 +279,20 @@ def download_report():
         pdf.set_font('Times','B',14.0) 
         pdf.cell(page_width, 0.0, 'Auto card', align='C')
         pdf.ln(10)
+        pdf.set_font('Courier', '', 12)
+        
+        col_width = page_width/4
+        
+        pdf.ln(1)
+
+        th = pdf.font_size
+
+        
+        pdf.cell(col_width, th, str(card), border=1)
+        pdf.cell(col_width, th, str(owner), border=1)
+        pdf.cell(col_width, th, str(puc), border=1)
+        pdf.cell(col_width, th, str(ins), border=1)
+
         return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=employee_report.pdf'})
 
 app.run(debug = True)
