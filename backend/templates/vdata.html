@@ -28,20 +28,20 @@
                 <!<li class="nav-item">
                   <!-- <span type="button" class="btn-get-started scrollto "></span><a href="/">Home</a></button> -->
                 </li> 
-                <!-- <li class="nav-item">
+                <!-- <<li class="nav-item">
                   <a class="nav-link" href="#">Link</a>
                 </li> --> 
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Vehicles
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Vehicle 1</a></li>
+                    <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                   </ul>
-                </li> -->
+                </li> 
                 <!-- <li class="nav-item">
                   <a class="nav-link disabled">Disabled</a>
                 </li> -->
@@ -84,7 +84,10 @@
                           <li class="list-group-item">Vehicle Insurance Expiry date:<b>{{postsdata.ains_enddate}}</b></li> 
                         </ul>
 
-                        
+                        <Div class="col-md-12">
+                          <button type="button" class="btn btn-warning text-dark border border-dark"><a  class="text-decoration-none text-dark" href="{{ url_for('.download_report') }}">AutoCard</a></button>
+                          <button type="button" class="btn btn-warning text-dark border border-dark "><a class="text-decoration-none text-dark"  href="">Delete Vehicle</a></button>
+                        </Div> 
                     </div>
                 
                     
@@ -99,10 +102,7 @@
      
      
 
-      <Div class="col-md-12">
-        <button type="button" class="btn btn-warning text-dark border border-dark"><a  class="text-decoration-none text-dark" href="{{ url_for('.download_report') }}">AutoCard</a></button>
-        <button type="button" class="btn btn-warning text-dark border border-dark "><a class="text-decoration-none text-dark"  href="">Delete Vehicle</a></button>
-      </Div>
+   
       {% endfor %}
  
     </header>
