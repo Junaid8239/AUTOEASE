@@ -263,36 +263,45 @@ def download_report():
         postdata=autocard.query.filter_by(auid=m).all()
       
         for i in postdata:
-         
-          
-               
                 card=i.acard_id
                 owner=i.aownername
                 puc=i.apuc_no
                 ins=i.ains_no
-        pdf = FPDF()
+                reg=i.areg_no
+                insend=i.ains_enddate
+                pucend=i.apuc_validdate
+        class PDF(FPDF):
+            def header(self):
+                self.image('./logo.png',10,8,25)
+                self.ln(10)
+
+        pdf = PDF('p','mm','Letter')
         pdf.add_page()
 
         page_width = pdf.w - 2 * pdf.l_margin
 
         pdf.set_font('Times','B',14.0) 
-        pdf.cell(page_width, 0.0, 'Auto card', align='C')
-        pdf.ln(10)
-        pdf.set_font('Courier', '', 12)
+        pdf.cell(page_width, 0.0, 'AUTOCARD', align='C')
+        pdf.ln(30)
+        pdf.set_font('Courier', 'B', 12)
         
-        col_width = page_width/4
-        
+        col_width = 50
+        pdf.set_text_color(220,50,50)
         pdf.ln(1)
 
-        th = pdf.font_size
+        th = 7
 
         
-        pdf.cell(col_width, th, str(card), border=1)
-        pdf.cell(col_width, th, str(owner), border=1)
-        pdf.cell(col_width, th, str(puc), border=1)
-        pdf.cell(col_width, th, str(ins), border=1)
+        pdf.cell(col_width, th,f'card_id : {str(card)}', border=0,ln=True)
+        pdf.cell(col_width, th,f'Registration id : {str(reg)}', border=0,ln=True)
+        pdf.cell(col_width, th, f'owner : {str(owner)}', border=0,ln=True)
+        pdf.cell(col_width, th, f'pollution_id : {str(puc)}', border=0,ln=True)
+        pdf.cell(col_width, th,f'valid date : {str(pucend)}', border=0,ln=True)
+        pdf.cell(col_width, th, f'insurance id : {str(ins)}', border=0,ln=True)
+        pdf.cell(col_width, th,f'valid date : {str(insend)}', border=0,ln=True)
+       
 
-        return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=employee_report.pdf'})
+        return Response(pdf.output(dest='S'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=employee_report.pdf'})
 
 app.run(debug = True)
 
