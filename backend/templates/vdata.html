@@ -36,7 +36,9 @@
                     Vehicles
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Vehicle 1</a></li>
+                    {%  for postsdata in postdata %}
+                    <li><a class="dropdown-item"  href="/vdata?reg={{postsdata.areg_no}}"><b>{{postsdata.areg_no}}</b></a></li>
+                    {% endfor %}
                     <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li> -->
@@ -56,7 +58,9 @@
         </nav>
         <!-- {% include "message.html" %} -->
         {%  for postsdata in postdata %}
+          
         <form action="/vdata", method="POST"></form>
+        {% if reg == postsdata.areg_no %}
         <div class="row">
           <div class="col-md-3"></div>
           <div class="col-md-6">
@@ -101,7 +105,7 @@
        
      
      
-
+        {% endif %}
    
       {% endfor %}
  

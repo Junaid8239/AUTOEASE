@@ -242,19 +242,18 @@ def addvehicle():
     return render_template("addvehicle.html")
 
 
-@app.route('/vdata',methods=['POST','GET'])
+@app.route('/vdata/', defaults={'reg' : 'none'},methods=['POST','GET'])
 @login_required
-def vdata():
-             
+def vdata(reg):
+    reg = request.args.get('reg')
+    print(reg)        
     id=current_user.id
     print (id)
     m=id
     postdata=autocard.query.filter_by(auid=m).all()
+    return render_template("vdata.html",postdata=postdata,id=id,reg=reg)
 
-        
-           
 
-    return render_template("vdata.html",postdata=postdata,id=id)
     
 
 @app.route('/download/report/pdf')  
