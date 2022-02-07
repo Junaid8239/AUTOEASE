@@ -280,7 +280,7 @@ def download_report():
                 self.set_font('helvetica','B',14.0) 
                 self.set_x(80)
                 self.cell(40, 10, 'AUTOEASE', align='C',border=1,fill=1)
-                self.ln(10)
+                self.ln(30)
                
             def footer(self):
                 self.set_y(-155)
@@ -314,6 +314,7 @@ def download_report():
         pdf.add_page()
         pdf.alias_nb_pages
         pdf.body()
+        pdf.ln(40)
         return Response(pdf.output(dest='S'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=employee_report.pdf'})
 
 app.run(debug = True)
