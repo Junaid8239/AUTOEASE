@@ -270,18 +270,48 @@ def download_report():
                 reg=i.areg_no
                 insend=i.ains_enddate
                 pucend=i.apuc_validdate
+        
         class PDF(FPDF):
             def header(self):
-                
-                self.set_font('Times','B',14.0) 
-                self.cell(0, 10, 'AUTOCARD', align='C')
+                self.set_draw_color(0,0,0)
+                self.set_fill_color(52, 235, 131)
+                self.set_text_color(255,255,255)
+                self.set_line_width(1.5)
+                self.set_font('helvetica','B',14.0) 
+                self.set_x(80)
+                self.cell(40, 10, 'AUTOEASE', align='C',border=1,fill=1)
                 self.ln(10)
+               
             def footer(self):
-                self.set_y(-15)
+                self.set_y(-155)
                 self.set_font('helvetica','I',10)
-                self.cell(0,10,f'Thank you for using AUTOEASE... :D',align='C')
+                self.cell(0,10,f'Thank you for using AUTOEASE... :D',align='L')
                 self.cell(0,10,f'Page{self.page_no()}/{{nb}}',align='C')
+            def body(self):
+                self.set_x(60)
+                w=80
+                h=8
+                self.set_fill_color(235, 244, 245)
+                self.cell(80,10,f'AUTOCARD',align='C',fill=1,ln=1,border=1)
+                self.set_draw_color(0,0,0)
+                self.set_fill_color(194, 171, 219)
                 
+                self.set_x(60)
+                self.cell(w,h,f'card_id : {str(card)}', border=1,ln=True,fill=1) 
+                self.set_x(60)
+                pdf.cell(w,h,f'Registration id : {str(reg)}', border=1,ln=True,fill=1)
+                self.set_x(60)
+                pdf.cell(w,h, f'owner : {str(owner)}', border=1,ln=True,fill=1)
+                self.set_x(60)
+                pdf.cell(w,h, f'pollution_id : {str(puc)}', border=1,ln=True,fill=1)
+                self.set_x(60)
+                pdf.cell(w,h,f'valid date : {str(pucend)}', border=1,ln=True,fill=1)
+                self.set_x(60)
+                pdf.cell(w,h, f'insurance id : {str(ins)}', border=1,ln=True,fill=1)
+                self.set_x(60)
+                pdf.cell(w,h,f'valid date : {str(insend)}', border=1,ln=True,fill=1)
+
+
 
 
         pdf = PDF('p','mm','Letter')
@@ -295,19 +325,13 @@ def download_report():
         pdf.set_font('Courier', 'B', 12)
         
         col_width = 100
-        pdf.set_text_color(0,0,255)
+        pdf.set_text_color(0,0,0)
         pdf.ln(1)
 
         th = 7
 
-        
-        pdf.cell(col_width, th,f'card_id : {str(card)}', border=0,ln=True)
-        pdf.cell(col_width, th,f'Registration id : {str(reg)}', border=0,ln=True)
-        pdf.cell(col_width, th, f'owner : {str(owner)}', border=0,ln=True)
-        pdf.cell(col_width, th, f'pollution_id : {str(puc)}', border=0,ln=True)
-        pdf.cell(col_width, th,f'valid date : {str(pucend)}', border=0,ln=True)
-        pdf.cell(col_width, th, f'insurance id : {str(ins)}', border=0,ln=True)
-        pdf.cell(col_width, th,f'valid date : {str(insend)}', border=0,ln=True)
+        pdf.body()
+    
        
 
         return Response(pdf.output(dest='S'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=employee_report.pdf'})
