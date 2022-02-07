@@ -310,30 +310,10 @@ def download_report():
                 pdf.cell(w,h, f'insurance id : {str(ins)}', border=1,ln=True,fill=1)
                 self.set_x(60)
                 pdf.cell(w,h,f'valid date : {str(insend)}', border=1,ln=True,fill=1)
-
-
-
-
         pdf = PDF('p','mm','Letter')
         pdf.add_page()
         pdf.alias_nb_pages
-
-        page_width = pdf.w - 2 * pdf.l_margin
-
-     
-        pdf.ln(30)
-        pdf.set_font('Courier', 'B', 12)
-        
-        col_width = 100
-        pdf.set_text_color(0,0,0)
-        pdf.ln(1)
-
-        th = 7
-
         pdf.body()
-    
-       
-
         return Response(pdf.output(dest='S'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=employee_report.pdf'})
 
 app.run(debug = True)
