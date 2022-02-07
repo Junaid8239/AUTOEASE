@@ -272,21 +272,30 @@ def download_report():
                 pucend=i.apuc_validdate
         class PDF(FPDF):
             def header(self):
-                self.image('./logo.png',10,8,25)
+                
+                self.set_font('Times','B',14.0) 
+                self.cell(0, 10, 'AUTOCARD', align='C')
                 self.ln(10)
+            def footer(self):
+                self.set_y(-15)
+                self.set_font('helvetica','I',10)
+                self.cell(0,10,f'Thank you for using AUTOEASE... :D',align='C')
+                self.cell(0,10,f'Page{self.page_no()}/{{nb}}',align='C')
+                
+
 
         pdf = PDF('p','mm','Letter')
         pdf.add_page()
+        pdf.alias_nb_pages
 
         page_width = pdf.w - 2 * pdf.l_margin
 
-        pdf.set_font('Times','B',14.0) 
-        pdf.cell(page_width, 0.0, 'AUTOCARD', align='C')
+     
         pdf.ln(30)
         pdf.set_font('Courier', 'B', 12)
         
-        col_width = 50
-        pdf.set_text_color(220,50,50)
+        col_width = 100
+        pdf.set_text_color(0,0,255)
         pdf.ln(1)
 
         th = 7
