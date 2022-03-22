@@ -259,8 +259,13 @@ def dvehicle(reg_no):
     db.engine.execute(f"delete from `vehicle` where `regno`='{reg_no}'")
     db.engine.execute(f"delete from `autocard` where `areg_no`='{reg_no}'")
     flash("vehicle deleted","danger")
-    return redirect("vdata.html")
+    id=current_user.id
+    m=id
+    postdata=autocard.query.filter_by(auid=m).all()
+    return render_template("vdata.html",postdata=postdata,regno=reg_no,areg_no=reg_no)
+    #return redirect("vdata.html")
     
+
 
 @app.route('/download/report/pdf')  
 def download_report():
