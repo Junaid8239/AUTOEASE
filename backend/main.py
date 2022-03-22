@@ -253,7 +253,13 @@ def vdata(reg):
     postdata=autocard.query.filter_by(auid=m).all()
     return render_template("vdata.html",postdata=postdata,id=id,reg=reg)
 
-
+@app.route('/dvehicle/<string:reg_no>',methods=['POST','GET'])
+@login_required
+def dvehicle(reg_no):
+    db.engine.execute(f"delete from `vehicle` where `regno`='{reg_no}'")
+    db.engine.execute(f"delete from `autocard` where `areg_no`='{reg_no}'")
+    flash("vehicle deleted","danger")
+    return redirect("vdata.html")
     
 
 @app.route('/download/report/pdf')  

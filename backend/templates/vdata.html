@@ -37,8 +37,10 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {%  for postsdata in postdata %}
+                   
                     <li><a class="dropdown-item"  href="/vdata?reg={{postsdata.areg_no}}"><b>{{postsdata.areg_no}}</b></a></li>
                     {% endfor %}
+                    <li><a class="dropdown-item"  href="/addvehicle"><b>AddVehicle+</b></a></li>
                     <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li> -->
@@ -90,7 +92,7 @@
 
                         <Div class="col-md-12">
                           <button type="button" class="btn btn-warning text-dark border border-dark"><a  class="text-decoration-none text-dark" href="{{ url_for('.download_report') }}">AutoCard</a></button>
-                          <button type="button" class="btn btn-warning text-dark border border-dark "><a class="text-decoration-none text-dark"  href="">Delete Vehicle</a></button>
+                          <button type="button" class="btn btn-warning text-dark border border-dark "><a class="text-decoration-none text-dark"  href="/dvehicle/{{postsdata.areg_no}}">Delete Vehicle</a></button>
                         </Div> 
                     </div>
                 
